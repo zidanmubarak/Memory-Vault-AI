@@ -1,6 +1,6 @@
 # Memory Layer AI Documentation
 
-Welcome to the public docs portal for Memory Layer AI.
+Welcome to the official documentation portal for Memory Layer AI.
 This site helps developers understand, integrate, deploy, and extend Memory Layer AI quickly.
 
 ## Start in 60 Seconds
