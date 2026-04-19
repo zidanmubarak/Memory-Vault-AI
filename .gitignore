@@ -1,0 +1,37 @@
+# Python cache/build
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# Virtual environments
+.venv/
+.venv-smoke/
+venv/
+
+# Tooling cache
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+site/
+.smoke-logs/
+
+# Local runtime data
+.env
+data/
+*.db
+benchmark-results/
+
+# IDE files
+.vscode/
+.idea/
+
+# Internal markdown files not intended for publication workflows
+ROADMAP.md
+AGENTS.md
+CONTRIBUTING.md
+CHANGELOG.md
+docs/adr/ADR-000-template.md

@@ -1,0 +1,100 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "memory-layer-ai"
+version = "0.1.0.dev0"
+description = "Persistent, context-aware memory for AI assistants."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Memory Layer AI Contributors" }]
+keywords = ["memory", "llm", "retrieval", "fastapi", "vector-db"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Framework :: FastAPI",
+]
+dependencies = [
+  "anyio>=4.4,<5.0",
+  "fastapi>=0.115,<1.0",
+  "pydantic>=2.8,<3.0",
+  "pydantic-settings>=2.3,<3.0",
+  "prometheus-client>=0.21,<1.0",
+  "rich>=13.7,<14.0",
+  "typer>=0.12,<1.0",
+  "typing-extensions>=4.9,<5.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "httpx>=0.27,<1.0",
+  "mypy>=1.11,<2.0",
+  "pytest>=8.3,<9.0",
+  "pytest-asyncio>=0.24,<1.0",
+  "ruff>=0.6,<1.0",
+]
+docs = [
+  "mkdocs>=1.6,<2.0",
+  "mkdocs-material>=9.6,<10.0",
+  "pymdown-extensions>=10.11,<11.0",
+]
+storage = [
+  "chromadb>=0.5,<1.0",
+  "sqlmodel>=0.0.22,<0.1",
+]
+embeddings = [
+  "sentence-transformers>=3.0,<4.0",
+  "tiktoken>=0.8,<1.0",
+]
+qdrant = [
+  "qdrant-client>=1.11,<2.0",
+]
+mcp = [
+  "uvicorn>=0.30,<1.0",
+]
+postgres = [
+  "asyncpg>=0.30,<1.0",
+]
+all = [
+  "asyncpg>=0.30,<1.0",
+  "chromadb>=0.5,<1.0",
+  "qdrant-client>=1.11,<2.0",
+  "sentence-transformers>=3.0,<4.0",
+  "sqlmodel>=0.0.22,<0.1",
+  "tiktoken>=0.8,<1.0",
+  "uvicorn>=0.30,<1.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/zidanmubarak/Memory-Layer-AI"
+Repository = "https://github.com/zidanmubarak/Memory-Layer-AI"
+Issues = "https://github.com/zidanmubarak/Memory-Layer-AI/issues"
+
+[project.scripts]
+memory-layer = "memory_layer.cli.main:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["memory_layer"]
+
+[tool.pytest.ini_options]
+addopts = "-ra"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "ASYNC", "RUF"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+warn_unused_configs = true
+packages = ["memory_layer"]

@@ -1,0 +1,26 @@
+:root {
+  --md-primary-fg-color: #0f766e;
+  --md-accent-fg-color: #ea580c;
+}
+
+.md-typeset h1 {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.md-typeset h2 {
+  border-bottom: 1px solid rgba(15, 118, 110, 0.25);
+  padding-bottom: 0.25rem;
+}
+
+.md-typeset code {
+  border-radius: 0.35rem;
+}
+
+.md-typeset .admonition {
+  border-radius: 0.5rem;
+}
+
+.md-typeset table:not([class]) th {
+  background-color: rgba(15, 118, 110, 0.12);
+}
