@@ -3,7 +3,7 @@ from __future__ import annotations
 import pytest
 from pydantic import ValidationError
 
-from memory_layer.config import Settings, get_settings
+from memory_vault.config import Settings, get_settings
 
 
 def test_settings_maps_to_memory_config() -> None:

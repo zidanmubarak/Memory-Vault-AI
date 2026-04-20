@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from memory_layer.exceptions import BudgetExceededError, MemoryLayerError, StorageError
+from memory_vault.exceptions import BudgetExceededError, MemoryLayerError, StorageError
 
 
 def test_budget_exceeded_error_exposes_budget_fields() -> None:

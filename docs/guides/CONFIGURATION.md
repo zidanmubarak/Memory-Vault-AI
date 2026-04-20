@@ -1,4 +1,4 @@
-# Configuration Guide — Memory Layer AI
+# Configuration Guide — Memory Vault AI
 
 > All configuration is driven by environment variables and the `MemoryConfig` Pydantic model.
 > Environment variables always override `MemoryConfig` defaults.
@@ -31,7 +31,7 @@ ML_EMBEDDING_MODEL=all-MiniLM-L6-v2
 ML_STORAGE_BACKEND=qdrant
 ML_QDRANT_URL=http://qdrant:6333
 ML_QDRANT_API_KEY=your-qdrant-cloud-key
-ML_SQLITE_PATH=/var/lib/memory-layer/memory.db
+ML_SQLITE_PATH=/var/lib/memory-vault/memory.db
 
 # Security
 ML_API_KEY=your-random-64-char-secret
@@ -74,7 +74,7 @@ ML_LOG_SANITIZE=true             # Prevent memory content appearing in logs
 | `ML_SQLITE_PATH` | str | `./data/memory.db` | SQLite file path |
 | `ML_QDRANT_URL` | str | — | Qdrant server URL (if using Qdrant) |
 | `ML_QDRANT_API_KEY` | str | — | Qdrant Cloud API key (optional for local) |
-| `ML_QDRANT_COLLECTION` | str | `memory_layer` | Qdrant collection name |
+| `ML_QDRANT_COLLECTION` | str | `memory_vault` | Qdrant collection name |
 | `ML_METADATA_BACKEND` | str | `sqlite` | Metadata store: `sqlite` or `postgres` |
 | `ML_POSTGRES_URL` | str | — | PostgreSQL URL for multi-instance deployments |
 
@@ -152,7 +152,7 @@ Metrics endpoint behavior:
 ## Using `MemoryConfig` in Code
 
 ```python
-from memory_layer import MemoryLayer, MemoryConfig
+from memory_vault import MemoryLayer, MemoryConfig
 
 config = MemoryConfig(
     token_budget=3000,

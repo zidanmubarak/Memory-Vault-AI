@@ -5,10 +5,10 @@ from datetime import UTC, datetime
 
 import pytest
 
-from memory_layer.exceptions import IngestionError, StorageError
-from memory_layer.ingestion.engine import IngestionEngine
-from memory_layer.models import MemoryChunk, MemoryType, PaginatedResult
-from memory_layer.storage.base import (
+from memory_vault.exceptions import IngestionError, StorageError
+from memory_vault.ingestion.engine import IngestionEngine
+from memory_vault.models import MemoryChunk, MemoryType, PaginatedResult
+from memory_vault.storage.base import (
     MemoryListQuery,
     MemorySearchQuery,
     ProceduralMemoryRecord,

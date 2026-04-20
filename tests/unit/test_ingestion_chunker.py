@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import pytest
 
-from memory_layer.ingestion.chunker import SemanticChunker
+from memory_vault.ingestion.chunker import SemanticChunker
 
 
 def _token_count(text: str) -> int:

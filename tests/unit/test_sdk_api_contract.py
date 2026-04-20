@@ -3,9 +3,9 @@ from __future__ import annotations
 import inspect
 from collections.abc import Callable
 
-import memory_layer
-from memory_layer import MemoryLayer
-from memory_layer.sdk import SDK_PUBLIC_METHODS
+import memory_vault
+from memory_vault import MemoryLayer
+from memory_vault.sdk import SDK_PUBLIC_METHODS
 
 _EMPTY = inspect.Signature.empty
 
@@ -21,7 +21,7 @@ def _signature_contract(
 
 
 def test_sdk_top_level_exports_include_stable_symbols() -> None:
-    exported = set(memory_layer.__all__)
+    exported = set(memory_vault.__all__)
     expected = {
         "MemoryLayer",
         "MemoryConfig",
@@ -36,13 +36,13 @@ def test_sdk_top_level_exports_include_stable_symbols() -> None:
     assert expected.issubset(exported)
 
 
-def test_sdk_module_exports_memory_layer_and_contract_list() -> None:
-    from memory_layer import sdk
+def test_sdk_module_exports_memory_vault_and_contract_list() -> None:
+    from memory_vault import sdk
 
     assert sdk.__all__ == ["SDK_PUBLIC_METHODS", "MemoryLayer"]
 
 
-def test_memory_layer_constructor_signature_is_stable() -> None:
+def test_memory_vault_constructor_signature_is_stable() -> None:
     contract = _signature_contract(MemoryLayer.__init__)
 
     assert contract == [

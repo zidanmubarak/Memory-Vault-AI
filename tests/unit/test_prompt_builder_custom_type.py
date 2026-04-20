@@ -2,8 +2,8 @@ from __future__ import annotations
 
 from datetime import UTC, datetime
 
-from memory_layer.models import MemoryChunk, MemoryType
-from memory_layer.prompt.builder import PromptBuilder
+from memory_vault.models import MemoryChunk, MemoryType
+from memory_vault.prompt.builder import PromptBuilder
 
 
 def test_build_formats_custom_memory_type_label() -> None:

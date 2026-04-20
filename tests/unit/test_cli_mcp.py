@@ -6,7 +6,7 @@ from typing import Any
 
 from typer.testing import CliRunner
 
-cli_main = importlib.import_module("memory_layer.cli.main")
+cli_main = importlib.import_module("memory_vault.cli.main")
 runner = CliRunner()
 
 

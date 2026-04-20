@@ -6,10 +6,10 @@ from typing import Any, ClassVar
 
 from fastapi.testclient import TestClient
 
-from memory_layer.api.main import create_app
-from memory_layer.config import Settings
-from memory_layer.models import MemoryChunk, PaginatedResult
-from memory_layer.storage.base import (
+from memory_vault.api.main import create_app
+from memory_vault.config import Settings
+from memory_vault.models import MemoryChunk, PaginatedResult
+from memory_vault.storage.base import (
     MemoryListQuery,
     MemorySearchQuery,
     ProceduralMemoryRecord,
@@ -160,7 +160,7 @@ class FakeMemoryLayer:
         return key != "missing"
 
 
-def _clear_fake_memory_layer() -> None:
+def _clear_fake_memory_vault() -> None:
     FakeMemoryLayer.created.clear()
     FakeMemoryLayer.list_calls.clear()
     FakeMemoryLayer.upsert_calls.clear()
@@ -168,8 +168,8 @@ def _clear_fake_memory_layer() -> None:
 
 
 def test_get_procedural_memory_returns_items(monkeypatch) -> None:  # type: ignore[no-untyped-def]
-    _clear_fake_memory_layer()
-    monkeypatch.setattr("memory_layer.api.routes.procedural.MemoryLayer", FakeMemoryLayer)
+    _clear_fake_memory_vault()
+    monkeypatch.setattr("memory_vault.api.routes.procedural.MemoryLayer", FakeMemoryLayer)
 
     settings = Settings(storage_backend="chroma", metadata_backend="sqlite")
     app = create_app(settings=settings, storage=FakeStorage())
@@ -193,8 +193,8 @@ def test_get_procedural_memory_returns_items(monkeypatch) -> None:  # type: igno
 
 
 def test_put_procedural_memory_upserts_item(monkeypatch) -> None:  # type: ignore[no-untyped-def]
-    _clear_fake_memory_layer()
-    monkeypatch.setattr("memory_layer.api.routes.procedural.MemoryLayer", FakeMemoryLayer)
+    _clear_fake_memory_vault()
+    monkeypatch.setattr("memory_vault.api.routes.procedural.MemoryLayer", FakeMemoryLayer)
 
     settings = Settings(storage_backend="chroma", metadata_backend="sqlite")
     app = create_app(settings=settings, storage=FakeStorage())
@@ -230,8 +230,8 @@ def test_put_procedural_memory_upserts_item(monkeypatch) -> None:  # type: ignor
 
 
 def test_delete_procedural_memory_returns_deleted(monkeypatch) -> None:  # type: ignore[no-untyped-def]
-    _clear_fake_memory_layer()
-    monkeypatch.setattr("memory_layer.api.routes.procedural.MemoryLayer", FakeMemoryLayer)
+    _clear_fake_memory_vault()
+    monkeypatch.setattr("memory_vault.api.routes.procedural.MemoryLayer", FakeMemoryLayer)
 
     settings = Settings(storage_backend="chroma", metadata_backend="sqlite")
     app = create_app(settings=settings, storage=FakeStorage())
@@ -245,8 +245,8 @@ def test_delete_procedural_memory_returns_deleted(monkeypatch) -> None:  # type:
 
 
 def test_delete_procedural_memory_returns_404_when_missing(monkeypatch) -> None:  # type: ignore[no-untyped-def]
-    _clear_fake_memory_layer()
-    monkeypatch.setattr("memory_layer.api.routes.procedural.MemoryLayer", FakeMemoryLayer)
+    _clear_fake_memory_vault()
+    monkeypatch.setattr("memory_vault.api.routes.procedural.MemoryLayer", FakeMemoryLayer)
 
     settings = Settings(storage_backend="chroma", metadata_backend="sqlite")
     app = create_app(settings=settings, storage=FakeStorage())

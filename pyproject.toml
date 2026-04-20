@@ -9,7 +9,7 @@ description = "Persistent, context-aware memory for AI assistants."
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }
-authors = [{ name = "Memory Layer AI Contributors" }]
+authors = [{ name = "Memory Vault AI Contributors" }]
 keywords = ["memory", "llm", "retrieval", "fastapi", "vector-db"]
 classifiers = [
   "Development Status :: 3 - Alpha",
@@ -72,15 +72,15 @@ all = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/zidanmubarak/Memory-Layer-AI"
-Repository = "https://github.com/zidanmubarak/Memory-Layer-AI"
-Issues = "https://github.com/zidanmubarak/Memory-Layer-AI/issues"
+Homepage = "https://github.com/zidanmubarak/Memory-Vault-AI"
+Repository = "https://github.com/zidanmubarak/Memory-Vault-AI"
+Issues = "https://github.com/zidanmubarak/Memory-Vault-AI/issues"
 
 [project.scripts]
-memory-vault = "memory_layer.cli.main:main"
+memory-vault = "memory_vault.cli.main:main"
 
 [tool.hatch.build.targets.wheel]
-packages = ["memory_layer"]
+packages = ["memory_vault"]
 
 [tool.pytest.ini_options]
 addopts = "-ra"
@@ -97,4 +97,4 @@ select = ["E", "F", "I", "UP", "B", "ASYNC", "RUF"]
 python_version = "3.11"
 strict = true
 warn_unused_configs = true
-packages = ["memory_layer"]
+packages = ["memory_vault"]

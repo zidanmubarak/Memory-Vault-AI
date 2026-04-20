@@ -8,10 +8,10 @@ from typing import Any, ClassVar
 
 from typer.testing import CliRunner
 
-from memory_layer.compression import CompressionResult
-from memory_layer.models import MemoryChunk, MemoryType, PaginatedResult, RecallResult
+from memory_vault.compression import CompressionResult
+from memory_vault.models import MemoryChunk, MemoryType, PaginatedResult, RecallResult
 
-cli_main = importlib.import_module("memory_layer.cli.main")
+cli_main = importlib.import_module("memory_vault.cli.main")
 
 
 class FakeMemoryLayer:
@@ -158,14 +158,14 @@ def _chunk(
     )
 
 
-def _reset_fake_memory_layer() -> None:
+def _reset_fake_memory_vault() -> None:
     FakeMemoryLayer.records.clear()
     FakeMemoryLayer.recall_calls.clear()
     FakeMemoryLayer.compress_calls.clear()
 
 
 def test_list_command_json_output(monkeypatch) -> None:  # type: ignore[no-untyped-def]
-    _reset_fake_memory_layer()
+    _reset_fake_memory_vault()
     FakeMemoryLayer.records.append(
         _chunk(
             memory_id="mem_1",
@@ -186,7 +186,7 @@ def test_list_command_json_output(monkeypatch) -> None:  # type: ignore[no-untyp
 
 
 def test_search_command_passes_memory_types(monkeypatch) -> None:  # type: ignore[no-untyped-def]
-    _reset_fake_memory_layer()
+    _reset_fake_memory_vault()
     FakeMemoryLayer.records.extend(
         [
             _chunk(
@@ -230,7 +230,7 @@ def test_search_command_passes_memory_types(monkeypatch) -> None:  # type: ignor
 
 
 def test_delete_all_requires_yes_flag(monkeypatch) -> None:  # type: ignore[no-untyped-def]
-    _reset_fake_memory_layer()
+    _reset_fake_memory_vault()
     monkeypatch.setattr(cli_main, "MemoryLayer", FakeMemoryLayer)
 
     result = runner.invoke(cli_main.app, ["delete", "--user-id", "user_a", "--all"])
@@ -239,7 +239,7 @@ def test_delete_all_requires_yes_flag(monkeypatch) -> None:  # type: ignore[no-u
 
 
 def test_stats_command_reports_counts(monkeypatch) -> None:  # type: ignore[no-untyped-def]
-    _reset_fake_memory_layer()
+    _reset_fake_memory_vault()
     FakeMemoryLayer.records.extend(
         [
             _chunk(
@@ -278,7 +278,7 @@ def test_stats_command_reports_counts(monkeypatch) -> None:  # type: ignore[no-u
 
 
 def test_compress_command_json_output(monkeypatch) -> None:  # type: ignore[no-untyped-def]
-    _reset_fake_memory_layer()
+    _reset_fake_memory_vault()
     monkeypatch.setattr(cli_main, "MemoryLayer", FakeMemoryLayer)
 
     result = runner.invoke(
@@ -311,7 +311,7 @@ def test_compress_command_json_output(monkeypatch) -> None:  # type: ignore[no-u
 
 
 def test_list_command_plain_output_and_empty_state(monkeypatch) -> None:  # type: ignore[no-untyped-def]
-    _reset_fake_memory_layer()
+    _reset_fake_memory_vault()
     monkeypatch.setattr(cli_main, "MemoryLayer", FakeMemoryLayer)
 
     empty_result = runner.invoke(cli_main.app, ["list", "--user-id", "user_a"])
@@ -334,7 +334,7 @@ def test_list_command_plain_output_and_empty_state(monkeypatch) -> None:  # type
 
 
 def test_search_command_plain_output_and_prompt(monkeypatch) -> None:  # type: ignore[no-untyped-def]
-    _reset_fake_memory_layer()
+    _reset_fake_memory_vault()
     monkeypatch.setattr(cli_main, "MemoryLayer", FakeMemoryLayer)
 
     empty_result = runner.invoke(cli_main.app, ["search", "q", "--user-id", "user_a"])
@@ -361,7 +361,7 @@ def test_search_command_plain_output_and_prompt(monkeypatch) -> None:  # type: i
 
 
 def test_delete_command_variants(monkeypatch) -> None:  # type: ignore[no-untyped-def]
-    _reset_fake_memory_layer()
+    _reset_fake_memory_vault()
     monkeypatch.setattr(cli_main, "MemoryLayer", FakeMemoryLayer)
 
     invalid_combo = runner.invoke(
@@ -421,7 +421,7 @@ def test_delete_command_variants(monkeypatch) -> None:  # type: ignore[no-untype
 
 
 def test_stats_and_compress_plain_output(monkeypatch) -> None:  # type: ignore[no-untyped-def]
-    _reset_fake_memory_layer()
+    _reset_fake_memory_vault()
     monkeypatch.setattr(cli_main, "MemoryLayer", FakeMemoryLayer)
 
     stats_empty = runner.invoke(cli_main.app, ["stats", "--user-id", "user_a"])

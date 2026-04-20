@@ -1,4 +1,4 @@
-# SDK API Specification - Memory Layer AI
+# SDK API Specification - Memory Vault AI
 
 > Versioned public Python SDK contract.
 > This specification defines semver-protected API surface for `MemoryLayer`.
@@ -20,8 +20,8 @@
 Supported imports:
 
 ```python
-from memory_layer import MemoryLayer
-from memory_layer.sdk import MemoryLayer, SDK_PUBLIC_METHODS
+from memory_vault import MemoryLayer
+from memory_vault.sdk import MemoryLayer, SDK_PUBLIC_METHODS
 ```
 
 `SDK_PUBLIC_METHODS` is the canonical list of semver-protected async methods.

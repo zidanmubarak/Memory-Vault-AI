@@ -8,7 +8,7 @@
 
 ## Context
 
-Memory Layer AI performs significant I/O: embedding model inference, vector DB queries,
+Memory Vault AI performs significant I/O: embedding model inference, vector DB queries,
 SQLite reads/writes, and optional LLM calls for compression. We must decide whether the
 core library is synchronous, asynchronous, or both.
 
@@ -20,7 +20,7 @@ with both asyncio and trio event loops.
 
 **Rationale:**
 
-Most modern Python frameworks that would integrate with Memory Layer AI are async:
+Most modern Python frameworks that would integrate with Memory Vault AI are async:
 FastAPI, Starlette, LangChain async, Anthropic Python SDK (async client), httpx.
 A sync library in an async framework requires `asyncio.run()` in a thread or a sync
 wrapper — both introduce overhead and complicate error handling.

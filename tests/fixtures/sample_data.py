@@ -3,7 +3,7 @@ from __future__ import annotations
 from datetime import UTC, datetime
 from typing import Any
 
-from memory_layer.models import MemoryChunk, MemoryType
+from memory_vault.models import MemoryChunk, MemoryType
 
 SAMPLE_MEMORY_PAYLOAD: dict[str, Any] = {
     "id": "mem_a3f9b2c10d4e",

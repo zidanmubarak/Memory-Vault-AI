@@ -5,11 +5,11 @@ from collections.abc import Sequence
 import pytest
 from fastapi.testclient import TestClient
 
-from memory_layer.api.main import create_app
-from memory_layer.config import Settings
-from memory_layer.exceptions import ConfigurationError
-from memory_layer.models import MemoryChunk, PaginatedResult
-from memory_layer.storage.base import (
+from memory_vault.api.main import create_app
+from memory_vault.config import Settings
+from memory_vault.exceptions import ConfigurationError
+from memory_vault.models import MemoryChunk, PaginatedResult
+from memory_vault.storage.base import (
     MemoryListQuery,
     MemorySearchQuery,
     ProceduralMemoryRecord,
@@ -125,7 +125,7 @@ def test_create_app_supports_qdrant_storage_backend() -> None:
 
     app = create_app(settings=settings)
 
-    assert app.title == "Memory Layer AI"
+    assert app.title == "Memory Vault AI"
 
 
 def test_create_app_raises_for_unsupported_metadata_backend() -> None:
@@ -236,12 +236,12 @@ def test_create_app_exposes_prometheus_metrics_when_enabled() -> None:
     assert metrics_response.headers["content-type"].startswith("text/plain")
 
     metrics_body = metrics_response.text
-    assert "memory_layer_requests_total" in metrics_body
-    assert "memory_layer_request_duration_seconds" in metrics_body
-    assert "memory_layer_memories_total" in metrics_body
-    assert "memory_layer_recall_latency_seconds" in metrics_body
-    assert "memory_layer_ingestion_latency_seconds" in metrics_body
-    assert "memory_layer_token_budget_utilization" in metrics_body
+    assert "memory_vault_requests_total" in metrics_body
+    assert "memory_vault_request_duration_seconds" in metrics_body
+    assert "memory_vault_memories_total" in metrics_body
+    assert "memory_vault_recall_latency_seconds" in metrics_body
+    assert "memory_vault_ingestion_latency_seconds" in metrics_body
+    assert "memory_vault_token_budget_utilization" in metrics_body
     assert 'endpoint="/v1/health"' in metrics_body
 
 

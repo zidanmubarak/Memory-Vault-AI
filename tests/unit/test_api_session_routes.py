@@ -7,10 +7,10 @@ from typing import Any, ClassVar
 import pytest
 from fastapi.testclient import TestClient
 
-from memory_layer.api.main import create_app
-from memory_layer.config import Settings
-from memory_layer.models import MemoryChunk, PaginatedResult
-from memory_layer.storage.base import (
+from memory_vault.api.main import create_app
+from memory_vault.config import Settings
+from memory_vault.models import MemoryChunk, PaginatedResult
+from memory_vault.storage.base import (
     MemoryListQuery,
     MemorySearchQuery,
     ProceduralMemoryRecord,
@@ -167,7 +167,7 @@ def test_get_session_stats_returns_404_when_missing() -> None:
 
 def test_post_session_compress_queues_background_job(monkeypatch) -> None:  # type: ignore[no-untyped-def]
     _reset_fake_compressor()
-    monkeypatch.setattr("memory_layer.api.routes.session.MemoryCompressor", FakeMemoryCompressor)
+    monkeypatch.setattr("memory_vault.api.routes.session.MemoryCompressor", FakeMemoryCompressor)
 
     storage = FakeStorage()
     storage.sessions["sess_xyz"] = _session_record(session_id="sess_xyz")
@@ -194,7 +194,7 @@ def test_post_session_compress_queues_background_job(monkeypatch) -> None:  # ty
 
 def test_post_session_compress_returns_404_when_missing(monkeypatch) -> None:  # type: ignore[no-untyped-def]
     _reset_fake_compressor()
-    monkeypatch.setattr("memory_layer.api.routes.session.MemoryCompressor", FakeMemoryCompressor)
+    monkeypatch.setattr("memory_vault.api.routes.session.MemoryCompressor", FakeMemoryCompressor)
 
     settings = Settings(storage_backend="chroma", metadata_backend="sqlite")
     app = create_app(settings=settings, storage=FakeStorage())
@@ -225,7 +225,7 @@ def test_post_session_compress_returns_404_for_wrong_user_scope(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     _reset_fake_compressor()
-    monkeypatch.setattr("memory_layer.api.routes.session.MemoryCompressor", FakeMemoryCompressor)
+    monkeypatch.setattr("memory_vault.api.routes.session.MemoryCompressor", FakeMemoryCompressor)
 
     storage = FakeStorage()
     storage.sessions["sess_xyz"] = _session_record(session_id="sess_xyz")

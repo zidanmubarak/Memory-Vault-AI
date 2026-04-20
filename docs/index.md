@@ -1,7 +1,7 @@
-# Memory Layer AI Documentation
+# Memory Vault AI Documentation
 
-Welcome to the official documentation portal for Memory Layer AI.
-This site helps developers understand, integrate, deploy, and extend Memory Layer AI quickly.
+Welcome to the official documentation portal for Memory Vault AI.
+This site helps developers understand, integrate, deploy, and extend Memory Vault AI quickly.
 
 ## Start in 60 Seconds
 
@@ -20,10 +20,10 @@ This site helps developers understand, integrate, deploy, and extend Memory Laye
 | Benchmark performance | [Benchmarking](guides/BENCHMARKING.md) |
 | Extend memory classification | [Plugin System Guide](guides/PLUGIN_SYSTEM.md) |
 
-## What You Can Do With Memory Layer AI
+## What You Can Do With Memory Vault AI
 
 - Understand architecture and memory flow end-to-end.
-- Integrate Memory Layer through SDK, REST API, CLI, or MCP.
+- Integrate Memory Vault through SDK, REST API, CLI, or MCP.
 - Configure storage and runtime behavior for local or production use.
 - Extend memory routing using custom memory type plugins.
 
@@ -32,7 +32,7 @@ This site helps developers understand, integrate, deploy, and extend Memory Laye
 ```python
 import asyncio
 
-from memory_layer import MemoryLayer
+from memory_vault import MemoryLayer
 
 
 async def main() -> None:
@@ -63,7 +63,7 @@ asyncio.run(main())
 This docs site is designed for GitHub Pages deployment via GitHub Actions.
 After Pages is enabled in repository settings, docs are available at:
 
-- https://zidanmubarak.github.io/Memory-Layer-AI/
+- https://zidanmubarak.github.io/Memory-Vault-AI/
 
 
 ## Build This Website Locally

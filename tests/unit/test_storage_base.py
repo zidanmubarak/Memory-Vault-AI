@@ -5,8 +5,8 @@ from typing import Any
 
 import pytest
 
-from memory_layer.models import MemoryType
-from memory_layer.storage.base import (
+from memory_vault.models import MemoryType
+from memory_vault.storage.base import (
     BackendLifecycle,
     MemoryListQuery,
     MemorySearchQuery,

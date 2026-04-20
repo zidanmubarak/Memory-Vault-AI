@@ -1,4 +1,4 @@
-# Database Schema — Memory Layer AI
+# Database Schema — Memory Vault AI
 
 > Two backends work together: **ChromaDB** for vector search, **SQLite** for structured metadata.
 > Never query them independently from feature code — always use `StorageLayer`.

@@ -1,23 +1,23 @@
 services:
-  memory-layer-api:
+  memory-vault-api:
     build:
       context: .
       dockerfile: Dockerfile
-    image: memory-layer-ai:local
+    image: memory-vault-ai:local
     ports:
       - "8000:8000"
     environment:
       ML_STORAGE_BACKEND: qdrant
       ML_METADATA_BACKEND: sqlite
       ML_QDRANT_URL: http://qdrant:6333
-      ML_QDRANT_COLLECTION: memory_layer
+      ML_QDRANT_COLLECTION: memory_vault
       ML_SQLITE_PATH: /app/data/memory.db
       ML_EMBEDDING_MODEL: all-MiniLM-L6-v2
       ML_DEFAULT_TOKEN_BUDGET: 2000
       ML_COMPRESSION_THRESHOLD: 10
       ML_API_KEY: ${ML_API_KEY:-}
     volumes:
-      - memory_layer_data:/app/data
+      - memory_vault_data:/app/data
     depends_on:
       - qdrant
     restart: unless-stopped
@@ -43,5 +43,5 @@ services:
     restart: unless-stopped
 
 volumes:
-  memory_layer_data:
+  memory_vault_data:
   qdrant_data:

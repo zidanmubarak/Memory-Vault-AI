@@ -11,12 +11,12 @@ from pathlib import Path
 from random import Random
 from time import perf_counter
 
-from memory_layer.ingestion.engine import IngestionEngine
-from memory_layer.ingestion.scorer import ImportanceScorer
-from memory_layer.models import MemoryChunk, MemoryConfig, PaginatedResult
-from memory_layer.retrieval.engine import RetrievalEngine
-from memory_layer.sdk import MemoryLayer
-from memory_layer.storage.base import (
+from memory_vault.ingestion.engine import IngestionEngine
+from memory_vault.ingestion.scorer import ImportanceScorer
+from memory_vault.models import MemoryChunk, MemoryConfig, PaginatedResult
+from memory_vault.retrieval.engine import RetrievalEngine
+from memory_vault.sdk import MemoryLayer
+from memory_vault.storage.base import (
     MemoryListQuery,
     MemorySearchQuery,
     ProceduralMemoryRecord,
@@ -427,7 +427,7 @@ async def run_benchmark(config: BenchmarkConfig) -> BenchmarkReport:
 
 def _format_text_report(report: BenchmarkReport) -> str:
     lines = [
-        "Memory Layer AI Benchmark Report",
+        "Memory Vault AI Benchmark Report",
         f"Generated: {report.generated_at}",
         (
             "Config: "
@@ -461,7 +461,7 @@ def _format_text_report(report: BenchmarkReport) -> str:
 
 
 def _parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Run Memory Layer AI performance benchmarks.")
+    parser = argparse.ArgumentParser(description="Run Memory Vault AI performance benchmarks.")
     parser.add_argument("--save-count", type=_positive_int, default=500)
     parser.add_argument("--recall-count", type=_positive_int, default=300)
     parser.add_argument("--warmup-saves", type=_positive_int, default=50)

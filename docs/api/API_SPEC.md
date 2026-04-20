@@ -1,4 +1,4 @@
-# API Specification — Memory Layer AI
+# API Specification — Memory Vault AI
 
 > **Version:** 0.1  
 > **Base URL:** `http://localhost:8000/v1`  
@@ -308,7 +308,7 @@ All errors follow RFC 7807 Problem Details:
 
 ```json
 {
-  "type": "https://memory-layer-ai.dev/errors/invalid-user",
+  "type": "https://memory-vault-ai.dev/errors/invalid-user",
   "title": "Invalid user ID",
   "status": 422,
   "detail": "user_id must be a non-empty string",

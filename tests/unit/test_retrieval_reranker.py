@@ -5,8 +5,8 @@ from datetime import UTC, datetime, timedelta
 
 import pytest
 
-from memory_layer.models import MemoryChunk, MemoryType
-from memory_layer.retrieval.reranker import MemoryReranker
+from memory_vault.models import MemoryChunk, MemoryType
+from memory_vault.retrieval.reranker import MemoryReranker
 
 _BASE_TIME = datetime(2026, 4, 19, 12, 0, tzinfo=UTC)
 

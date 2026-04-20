@@ -4,8 +4,8 @@ from datetime import UTC, datetime
 
 import pytest
 
-from memory_layer.budget.manager import ContextBudgetManager
-from memory_layer.models import MemoryChunk, MemoryType
+from memory_vault.budget.manager import ContextBudgetManager
+from memory_vault.models import MemoryChunk, MemoryType
 
 
 def _chunk(*, memory_id: str, content: str, memory_type: MemoryType) -> MemoryChunk:

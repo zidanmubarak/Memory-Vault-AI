@@ -2,8 +2,8 @@ from __future__ import annotations
 
 import pytest
 
-from memory_layer.models import MemoryType
-from memory_layer.plugins import (
+from memory_vault.models import MemoryType
+from memory_vault.plugins import (
     MemoryTypePlugin,
     MemoryTypePluginRegistry,
     clear_memory_type_plugins,

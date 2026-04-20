@@ -5,9 +5,9 @@ from typing import Any
 
 import pytest
 
-from memory_layer.models import MemoryChunk, MemoryType
-from memory_layer.storage.base import MemorySearchQuery
-from memory_layer.storage.chroma import ChromaAdapter
+from memory_vault.models import MemoryChunk, MemoryType
+from memory_vault.storage.base import MemorySearchQuery
+from memory_vault.storage.chroma import ChromaAdapter
 
 
 @dataclass

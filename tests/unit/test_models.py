@@ -5,7 +5,7 @@ from datetime import UTC, datetime
 import pytest
 from pydantic import ValidationError
 
-from memory_layer.models import (
+from memory_vault.models import (
     MemoryChunk,
     MemoryConfig,
     MemoryType,

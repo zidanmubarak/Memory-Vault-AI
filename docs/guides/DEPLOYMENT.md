@@ -1,6 +1,6 @@
-# Deployment Guide — Memory Layer AI
+# Deployment Guide — Memory Vault AI
 
-> **Audience:** DevOps engineers and developers deploying Memory Layer AI to production.
+> **Audience:** DevOps engineers and developers deploying Memory Vault AI to production.
 > For local development setup, see the [documentation home](../index.md).
 > For SDK usage, see [`docs/guides/SDK_GUIDE.md`](SDK_GUIDE.md).
 
@@ -20,12 +20,12 @@
 ## Option 1: Docker Compose (Recommended for Self-Hosting)
 
 The repository ships with a production-oriented
-[`Dockerfile`](https://github.com/zidanmubarak/Memory-Layer-AI/blob/main/Dockerfile)
+[`Dockerfile`](https://github.com/zidanmubarak/Memory-Vault-AI/blob/main/Dockerfile)
 and
-[`docker-compose.yml`](https://github.com/zidanmubarak/Memory-Layer-AI/blob/main/docker-compose.yml).
+[`docker-compose.yml`](https://github.com/zidanmubarak/Memory-Vault-AI/blob/main/docker-compose.yml).
 The compose stack starts:
 
-- `memory-layer-api` (FastAPI service)
+- `memory-vault-api` (FastAPI service)
 - `qdrant` (vector store)
 - persistent volumes for SQLite metadata and Qdrant storage
 
@@ -78,24 +78,24 @@ curl http://localhost:8000/openapi.json
 sudo apt-get update && sudo apt-get install -y python3.11 python3.11-venv
 
 # Create service user
-sudo useradd -m -s /bin/bash memorylayer
+sudo useradd -m -s /bin/bash memoryvault
 
 # Install as service user
-sudo -u memorylayer bash -c "
-  python3.11 -m venv /home/memorylayer/venv
-  /home/memorylayer/venv/bin/pip install 'memory-vault[qdrant]'
+sudo -u memoryvault bash -c "
+  python3.11 -m venv /home/memoryvault/venv
+  /home/memoryvault/venv/bin/pip install 'memory-vault[qdrant]'
 "
 ```
 
 ### Environment Configuration
 
-Create `/etc/memory-layer/env`:
+Create `/etc/memory-vault/env`:
 
 ```bash
 # Storage
 ML_STORAGE_BACKEND=qdrant
 ML_QDRANT_URL=http://localhost:6333
-ML_SQLITE_PATH=/var/lib/memory-layer/memory.db
+ML_SQLITE_PATH=/var/lib/memory-vault/memory.db
 
 # Embedding
 ML_EMBEDDING_MODEL=all-MiniLM-L6-v2
@@ -116,26 +116,26 @@ ML_LOG_FORMAT=json
 
 ### Systemd Service
 
-Create `/etc/systemd/system/memory-layer-api.service`:
+Create `/etc/systemd/system/memory-vault-api.service`:
 
 ```ini
 [Unit]
-Description=Memory Layer AI API Server
+Description=Memory Vault AI API Server
 After=network.target qdrant.service
 Requires=qdrant.service
 
 [Service]
 Type=exec
-User=memorylayer
-Group=memorylayer
-WorkingDirectory=/home/memorylayer
-EnvironmentFile=/etc/memory-layer/env
-ExecStart=/home/memorylayer/venv/bin/uvicorn \
-    memory_layer.api.main:app \
+User=memoryvault
+Group=memoryvault
+WorkingDirectory=/home/memoryvault
+EnvironmentFile=/etc/memory-vault/env
+ExecStart=/home/memoryvault/venv/bin/uvicorn \
+    memory_vault.api.main:app \
     --host 0.0.0.0 \
     --port 8000 \
     --workers 4 \
-    --log-config /etc/memory-layer/log-config.json
+    --log-config /etc/memory-vault/log-config.json
 ExecReload=/bin/kill -HUP $MAINPID
 Restart=on-failure
 RestartSec=5
@@ -147,9 +147,9 @@ WantedBy=multi-user.target
 
 ```bash
 sudo systemctl daemon-reload
-sudo systemctl enable memory-layer-api
-sudo systemctl start memory-layer-api
-sudo systemctl status memory-layer-api
+sudo systemctl enable memory-vault-api
+sudo systemctl start memory-vault-api
+sudo systemctl status memory-vault-api
 ```
 
 ---
@@ -162,21 +162,21 @@ sudo systemctl status memory-layer-api
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: memory-layer-api
-  namespace: memory-layer
+  name: memory-vault-api
+  namespace: memory-vault
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: memory-layer-api
+      app: memory-vault-api
   template:
     metadata:
       labels:
-        app: memory-layer-api
+        app: memory-vault-api
     spec:
       containers:
       - name: api
-        image: ghcr.io/zidanmubarak/memory-layer-ai:latest
+        image: ghcr.io/zidanmubarak/memory-vault-ai:latest
         ports:
         - containerPort: 8000
         env:
@@ -187,7 +187,7 @@ spec:
         - name: ML_API_KEY
           valueFrom:
             secretKeyRef:
-              name: memory-layer-secrets
+              name: memory-vault-secrets
               key: api-key
         resources:
           requests:
@@ -212,11 +212,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: memory-layer-service
-  namespace: memory-layer
+  name: memory-vault-service
+  namespace: memory-vault
 spec:
   selector:
-    app: memory-layer-api
+    app: memory-vault-api
   ports:
   - port: 80
     targetPort: 8000
@@ -230,10 +230,10 @@ cluster and the same SQLite-compatible database (use PostgreSQL for multi-instan
 
 ## Nginx Reverse Proxy
 
-For production, put Memory Layer AI behind Nginx:
+For production, put Memory Vault AI behind Nginx:
 
 ```nginx
-upstream memory_layer {
+upstream memory_vault {
     server 127.0.0.1:8000;
     keepalive 32;
 }
@@ -246,7 +246,7 @@ server {
     ssl_certificate_key /etc/ssl/private/memory.yourdomain.com.key;
 
     location /v1/ {
-        proxy_pass http://memory_layer;
+        proxy_pass http://memory_vault;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -258,7 +258,7 @@ server {
     }
 
     location /v1/health {
-        proxy_pass http://memory_layer;
+        proxy_pass http://memory_vault;
         access_log off;
     }
 }
@@ -281,7 +281,7 @@ server {
 | `ML_SQLITE_PATH` | No | `./data/memory.db` | SQLite database file |
 | `ML_QDRANT_URL` | If Qdrant | — | e.g. `http://localhost:6333` |
 | `ML_QDRANT_API_KEY` | No | — | Qdrant Cloud API key |
-| `ML_QDRANT_COLLECTION` | No | `memory_layer` | Qdrant collection name |
+| `ML_QDRANT_COLLECTION` | No | `memory_vault` | Qdrant collection name |
 | `ML_EMBEDDING_MODEL` | No | `all-MiniLM-L6-v2` | sentence-transformers model |
 | `ML_API_KEY` | Prod | — | Enables Bearer auth on all endpoints |
 | `ML_DEFAULT_TOKEN_BUDGET` | No | `2000` | Default token budget per recall |
@@ -317,12 +317,12 @@ curl http://localhost:8000/v1/health
 Metrics exposed at `/metrics` (enable with `ML_METRICS_ENABLED=true`):
 
 ```
-memory_layer_requests_total{endpoint, method, status}
-memory_layer_request_duration_seconds{endpoint}
-memory_layer_memories_total{user_id, memory_type}
-memory_layer_recall_latency_seconds
-memory_layer_ingestion_latency_seconds
-memory_layer_token_budget_utilization
+memory_vault_requests_total{endpoint, method, status}
+memory_vault_request_duration_seconds{endpoint}
+memory_vault_memories_total{user_id, memory_type}
+memory_vault_recall_latency_seconds
+memory_vault_ingestion_latency_seconds
+memory_vault_token_budget_utilization
 ```
 
 ### Structured logging (JSON)
@@ -351,20 +351,20 @@ Set `ML_LOG_FORMAT=json` for log aggregation (Loki, CloudWatch, Datadog):
 
 ```bash
 # Stop writes first (or use snapshot if available)
-systemctl stop memory-layer-api
+systemctl stop memory-vault-api
 
 # Backup
-tar -czf "chroma-backup-$(date +%Y%m%d).tar.gz" /var/lib/memory-layer/chroma/
+tar -czf "chroma-backup-$(date +%Y%m%d).tar.gz" /var/lib/memory-vault/chroma/
 
 # Restart
-systemctl start memory-layer-api
+systemctl start memory-vault-api
 ```
 
 ### SQLite backup
 
 ```bash
 # SQLite supports hot backup
-sqlite3 /var/lib/memory-layer/memory.db ".backup /backups/memory-$(date +%Y%m%d).db"
+sqlite3 /var/lib/memory-vault/memory.db ".backup /backups/memory-$(date +%Y%m%d).db"
 ```
 
 ### Automated backup script
@@ -374,19 +374,19 @@ sqlite3 /var/lib/memory-layer/memory.db ".backup /backups/memory-$(date +%Y%m%d)
 # /usr/local/bin/memory-vault-backup.sh
 set -e
 
-BACKUP_DIR="/backups/memory-layer"
+BACKUP_DIR="/backups/memory-vault"
 DATE=$(date +%Y%m%d-%H%M%S)
 
 mkdir -p "$BACKUP_DIR"
 
 # SQLite hot backup
-sqlite3 /var/lib/memory-layer/memory.db \
+sqlite3 /var/lib/memory-vault/memory.db \
   ".backup $BACKUP_DIR/memory-$DATE.db"
 
 # ChromaDB snapshot (stop API briefly)
-systemctl stop memory-layer-api
-tar -czf "$BACKUP_DIR/chroma-$DATE.tar.gz" /var/lib/memory-layer/chroma/
-systemctl start memory-layer-api
+systemctl stop memory-vault-api
+tar -czf "$BACKUP_DIR/chroma-$DATE.tar.gz" /var/lib/memory-vault/chroma/
+systemctl start memory-vault-api
 
 # Retain 30 days
 find "$BACKUP_DIR" -mtime +30 -delete
@@ -416,7 +416,7 @@ Add to cron: `0 2 * * * /usr/local/bin/memory-vault-backup.sh`
 - [ ] Server bound to `localhost` only (Nginx handles external TLS)
 - [ ] Qdrant not exposed on public network
 - [ ] SQLite file permissions: `chmod 600 memory.db`
-- [ ] Data directory permissions: `chmod 700 /var/lib/memory-layer`
+- [ ] Data directory permissions: `chmod 700 /var/lib/memory-vault`
 - [ ] Backups encrypted at rest
 - [ ] Log files do not contain memory content (set `ML_LOG_SANITIZE=true`)
 - [ ] CORS origins explicitly set (not `*`) in production

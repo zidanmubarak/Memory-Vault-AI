@@ -2,8 +2,8 @@ from __future__ import annotations
 
 import pytest
 
-from memory_layer.exceptions import EmbeddingError
-from memory_layer.ingestion.embedder import SentenceTransformerEmbedder
+from memory_vault.exceptions import EmbeddingError
+from memory_vault.ingestion.embedder import SentenceTransformerEmbedder
 
 
 class FakeModel:

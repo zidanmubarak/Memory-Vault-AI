@@ -5,9 +5,9 @@ from pathlib import Path
 
 import pytest
 
-from memory_layer.models import MemoryChunk, MemoryType
-from memory_layer.storage.base import MemoryListQuery, ProceduralMemoryRecord, SessionStatsRecord
-from memory_layer.storage.sqlite import SQLiteAdapter
+from memory_vault.models import MemoryChunk, MemoryType
+from memory_vault.storage.base import MemoryListQuery, ProceduralMemoryRecord, SessionStatsRecord
+from memory_vault.storage.sqlite import SQLiteAdapter
 
 
 def _memory_chunk(*, memory_id: str, user_id: str, memory_type: MemoryType) -> MemoryChunk:

@@ -4,8 +4,8 @@ from datetime import UTC, datetime
 
 import pytest
 
-from memory_layer.models import MemoryChunk, MemoryType
-from memory_layer.prompt.builder import PromptBuilder
+from memory_vault.models import MemoryChunk, MemoryType
+from memory_vault.prompt.builder import PromptBuilder
 
 
 def _chunk(*, memory_id: str, memory_type: MemoryType, content: str) -> MemoryChunk:

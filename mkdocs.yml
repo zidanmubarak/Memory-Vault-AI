@@ -1,8 +1,8 @@
-site_name: Memory Layer AI
+site_name: Memory Vault AI
 site_description: Persistent, context-aware memory system for AI assistants.
-site_url: https://zidanmubarak.github.io/Memory-Layer-AI/
-repo_url: https://github.com/zidanmubarak/Memory-Layer-AI
-repo_name: zidanmubarak/Memory-Layer-AI
+site_url: https://zidanmubarak.github.io/Memory-Vault-AI/
+repo_url: https://github.com/zidanmubarak/Memory-Vault-AI
+repo_name: zidanmubarak/Memory-Vault-AI
 docs_dir: docs
 site_dir: site
 use_directory_urls: true

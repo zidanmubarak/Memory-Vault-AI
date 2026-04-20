@@ -6,10 +6,10 @@ from typing import Any
 
 import pytest
 
-from memory_layer.compression.engine import HeuristicSessionSummarizer, MemoryCompressor
-from memory_layer.exceptions import CompressionError
-from memory_layer.models import MemoryChunk, MemoryType, PaginatedResult
-from memory_layer.storage.base import (
+from memory_vault.compression.engine import HeuristicSessionSummarizer, MemoryCompressor
+from memory_vault.exceptions import CompressionError
+from memory_vault.models import MemoryChunk, MemoryType, PaginatedResult
+from memory_vault.storage.base import (
     MemoryListQuery,
     MemorySearchQuery,
     ProceduralMemoryRecord,

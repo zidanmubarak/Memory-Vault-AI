@@ -4,8 +4,8 @@ from collections.abc import Sequence
 
 import pytest
 
-from memory_layer.models import MemoryChunk, MemoryType, PaginatedResult
-from memory_layer.storage.base import (
+from memory_vault.models import MemoryChunk, MemoryType, PaginatedResult
+from memory_vault.storage.base import (
     MemoryListQuery,
     MemorySearchQuery,
     MetadataStoreBackend,
@@ -13,7 +13,7 @@ from memory_layer.storage.base import (
     SessionStatsRecord,
     VectorStoreBackend,
 )
-from memory_layer.storage.composite import CompositeStorage
+from memory_vault.storage.composite import CompositeStorage
 
 
 class FakeVectorBackend(VectorStoreBackend):

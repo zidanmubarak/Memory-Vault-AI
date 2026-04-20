@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import pytest
 
-from memory_layer.ingestion.scorer import ImportanceScorer
+from memory_vault.ingestion.scorer import ImportanceScorer
 
 
 def test_scorer_validates_threshold_bounds() -> None:

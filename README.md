@@ -1,15 +1,15 @@
-# Memory Layer AI
+# Memory Vault AI
 
 **Persistent, context-aware memory for any AI assistant.**
 
-Memory Layer AI is an open-source Python library and REST API that gives AI models
+Memory Vault AI is an open-source Python library and REST API that gives AI models
 the ability to remember users across sessions — automatically, efficiently, and with full
 privacy control.
 
 ```python
 import asyncio
 
-from memory_layer import MemoryLayer
+from memory_vault import MemoryLayer
 
 async def main() -> None:
 	memory = MemoryLayer(user_id="user-123")
@@ -26,9 +26,9 @@ asyncio.run(main())
 
 ---
 
-## Why Memory Layer AI?
+## Why Memory Vault AI?
 
-| Problem | Memory Layer AI |
+| Problem | Memory Vault AI |
 |---|---|
 | AI forgets everything between sessions | Persistent memory across unlimited sessions |
 | Context window fills up with history | Smart compression and retrieval, not raw history dump |
@@ -61,7 +61,7 @@ pip install "memory-vault[all]"
 ```python
 import asyncio
 
-from memory_layer import MemoryLayer
+from memory_vault import MemoryLayer
 
 async def main() -> None:
 	# Embedded mode (no server needed)
@@ -79,7 +79,7 @@ asyncio.run(main())
 **Or run as an API server:**
 
 ```bash
-uvicorn memory_layer.api.main:app --port 8000
+uvicorn memory_vault.api.main:app --port 8000
 ```
 
 Memory introspection UI is available at `http://localhost:8000/ui`.
@@ -132,14 +132,14 @@ To make docs publicly accessible without local setup:
 
 Public URL format:
 
-- `https://zidanmubarak.github.io/Memory-Layer-AI/`
+- `https://zidanmubarak.github.io/Memory-Vault-AI/`
 
 | Document | Description |
 |---|---|
 | [Architecture](docs/architecture/ARCHITECTURE.md) | System design and component overview |
 | [Memory Logic](docs/specs/MEMORY_LOGIC.md) | How ingestion, retrieval and compression work |
 | [API Reference](docs/api/API_SPEC.md) | REST endpoint contracts |
-| [SDK Guide](docs/guides/SDK_GUIDE.md) | Using Memory Layer as a Python library |
+| [SDK Guide](docs/guides/SDK_GUIDE.md) | Using Memory Vault as a Python library |
 | [MCP Integration](docs/guides/MCP_INTEGRATION.md) | Connecting to Claude Code, Cursor, etc. |
 | [Benchmarking Guide](docs/guides/BENCHMARKING.md) | Running performance benchmark suite and baselines |
 | [Plugin System Guide](docs/guides/PLUGIN_SYSTEM.md) | Building and registering custom memory type plugins |

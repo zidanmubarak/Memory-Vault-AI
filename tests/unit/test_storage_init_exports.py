@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from memory_layer.storage import ChromaAdapter, CompositeStorage, QdrantAdapter, SQLiteAdapter
+from memory_vault.storage import ChromaAdapter, CompositeStorage, QdrantAdapter, SQLiteAdapter
 
 
 def test_storage_init_exports_concrete_adapters() -> None:

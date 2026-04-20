@@ -1,6 +1,6 @@
-# SDK Guide — Memory Layer AI
+# SDK Guide — Memory Vault AI
 
-> **Audience:** Developers integrating Memory Layer AI as a Python library.
+> **Audience:** Developers integrating Memory Vault AI as a Python library.
 > For REST API usage, see [`docs/api/API_SPEC.md`](../api/API_SPEC.md).
 > For AI agent integration (Claude Code, Cursor), see [`docs/guides/MCP_INTEGRATION.md`](MCP_INTEGRATION.md).
 
@@ -19,8 +19,8 @@ pip install "memory-vault[qdrant]"
 pip install "memory-vault[all]"
 
 # Development install from source
-git clone https://github.com/zidanmubarak/Memory-Layer-AI
-cd memory-layer-ai
+git clone https://github.com/zidanmubarak/Memory-Vault-AI
+cd memory-vault-ai
 pip install -e ".[dev]"
 ```
 
@@ -32,7 +32,7 @@ pip install -e ".[dev]"
 
 ```python
 import asyncio
-from memory_layer import MemoryLayer
+from memory_vault import MemoryLayer
 
 async def main():
     # Embedded mode — no server needed, data stored locally
@@ -60,7 +60,7 @@ asyncio.run(main())
 ### Constructor
 
 ```python
-from memory_layer import MemoryLayer, MemoryConfig
+from memory_vault import MemoryLayer, MemoryConfig
 
 memory = MemoryLayer(
     user_id="alice",              # Required. All memory is scoped to this ID.
@@ -194,7 +194,7 @@ All options can be set via `MemoryConfig` or environment variables.
 The most common use case — inject memory into every LLM call:
 
 ```python
-from memory_layer import MemoryLayer
+from memory_vault import MemoryLayer
 import anthropic
 
 memory = MemoryLayer(user_id=user_id, session_id=session_id)
@@ -268,7 +268,7 @@ await memory.save(
 Manage sessions explicitly for multi-session applications:
 
 ```python
-from memory_layer import MemoryLayer
+from memory_vault import MemoryLayer
 import uuid
 
 # Start a new session
@@ -304,7 +304,7 @@ pip install "memory-vault[qdrant]"
 ```
 
 ```python
-from memory_layer import MemoryLayer, MemoryConfig
+from memory_vault import MemoryLayer, MemoryConfig
 
 memory = MemoryLayer(
     user_id="alice",
@@ -312,7 +312,7 @@ memory = MemoryLayer(
         storage_backend="qdrant",
         qdrant_url="http://localhost:6333",
         qdrant_api_key="your-key",          # Optional for local Qdrant
-        qdrant_collection="memory_layer",
+        qdrant_collection="memory_vault",
     )
 )
 ```
@@ -351,7 +351,7 @@ async with httpx.AsyncClient(base_url="http://localhost:8000") as client:
 ## Error Handling
 
 ```python
-from memory_layer.exceptions import (
+from memory_vault.exceptions import (
     MemoryLayerError,       # Base exception
     StorageError,           # ChromaDB or SQLite failure
     EmbeddingError,         # Embedding model failure

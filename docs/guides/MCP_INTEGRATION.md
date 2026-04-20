@@ -1,6 +1,6 @@
-# MCP Integration Guide — Memory Layer AI
+# MCP Integration Guide — Memory Vault AI
 
-> **Audience:** Developers who want to connect Memory Layer AI to AI coding tools
+> **Audience:** Developers who want to connect Memory Vault AI to AI coding tools
 > like Claude Code, Cursor, Windsurf, or any MCP-compatible client.
 >
 > **What you get:** Your AI assistant gains persistent memory across every session —
@@ -11,7 +11,7 @@
 ## What is MCP?
 
 Model Context Protocol (MCP) is an open standard that lets AI tools connect to external
-data sources and services. Memory Layer AI exposes an MCP server that makes memory
+data sources and services. Memory Vault AI exposes an MCP server that makes memory
 operations available as tools any compatible AI client can call.
 
 **Supported clients:** Claude Code, Cursor, Windsurf, Continue, and any client implementing MCP.
@@ -21,7 +21,7 @@ operations available as tools any compatible AI client can call.
 ## Prerequisites
 
 ```bash
-# Install Memory Layer AI with MCP support
+# Install Memory Vault AI with MCP support
 pip install "memory-vault[mcp]"
 
 # Verify installation
@@ -94,7 +94,7 @@ In Claude Code, type:
 /mcp list
 ```
 
-You should see `memory-layer` in the connected servers list with its available tools.
+You should see `memory-vault` in the connected servers list with its available tools.
 
 ---
 
@@ -117,7 +117,7 @@ Or edit `~/.cursor/mcp.json` directly:
 {
   "servers": [
     {
-      "name": "memory-layer",
+      "name": "memory-vault",
       "url": "http://localhost:8001/mcp/v1"
     }
   ]
@@ -231,7 +231,7 @@ Never ask me to repeat context I've shared before. Check your memory first.
 ```markdown
 ## Memory Instructions
 
-You have access to memory-layer MCP tools. On every new session:
+You have access to memory-vault MCP tools. On every new session:
 1. Call `memory_recall` with the current task as query, user_id="<project_name>"
 2. Store any new architectural decisions, conventions, or debugging findings with `memory_save`
 
@@ -259,7 +259,7 @@ Keep `user_id` consistent across sessions — it's the key that connects all mem
 
 ### macOS (launchd)
 
-Create `~/Library/LaunchAgents/ai.memorylayer.mcp.plist`:
+Create `~/Library/LaunchAgents/ai.memoryvault.mcp.plist`:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -268,7 +268,7 @@ Create `~/Library/LaunchAgents/ai.memorylayer.mcp.plist`:
 <plist version="1.0">
 <dict>
   <key>Label</key>
-  <string>ai.memorylayer.mcp</string>
+  <string>ai.memoryvault.mcp</string>
   <key>ProgramArguments</key>
   <array>
     <string>/usr/local/bin/memory-vault</string>
@@ -289,7 +289,7 @@ Create `~/Library/LaunchAgents/ai.memorylayer.mcp.plist`:
 ```
 
 ```bash
-launchctl load ~/Library/LaunchAgents/ai.memorylayer.mcp.plist
+launchctl load ~/Library/LaunchAgents/ai.memoryvault.mcp.plist
 ```
 
 ### Linux (systemd)
@@ -298,7 +298,7 @@ Create `/etc/systemd/user/memory-vault-mcp.service`:
 
 ```ini
 [Unit]
-Description=Memory Layer AI MCP Server
+Description=Memory Vault AI MCP Server
 After=network.target
 
 [Service]

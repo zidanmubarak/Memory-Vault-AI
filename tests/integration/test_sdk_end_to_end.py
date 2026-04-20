@@ -6,12 +6,12 @@ from math import sqrt
 
 import pytest
 
-from memory_layer.ingestion.engine import IngestionEngine
-from memory_layer.ingestion.scorer import ImportanceScorer
-from memory_layer.models import MemoryChunk, MemoryConfig, MemoryType, PaginatedResult
-from memory_layer.retrieval.engine import RetrievalEngine
-from memory_layer.sdk import MemoryLayer
-from memory_layer.storage.base import (
+from memory_vault.ingestion.engine import IngestionEngine
+from memory_vault.ingestion.scorer import ImportanceScorer
+from memory_vault.models import MemoryChunk, MemoryConfig, MemoryType, PaginatedResult
+from memory_vault.retrieval.engine import RetrievalEngine
+from memory_vault.sdk import MemoryLayer
+from memory_vault.storage.base import (
     MemoryListQuery,
     MemorySearchQuery,
     ProceduralMemoryRecord,
@@ -206,7 +206,7 @@ class InMemoryStorage(StorageBackend):
 
 
 @pytest.mark.asyncio
-async def test_memory_layer_save_recall_end_to_end() -> None:
+async def test_memory_vault_save_recall_end_to_end() -> None:
     now = datetime(2026, 4, 19, 12, 0, tzinfo=UTC)
     storage = InMemoryStorage()
     embedder = DeterministicEmbedder()

@@ -7,7 +7,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 WORKDIR /app
 
 COPY pyproject.toml README.md ./
-COPY memory_layer ./memory_layer
+COPY memory_vault ./memory_vault
 
 RUN pip install --upgrade pip \
     && pip install ".[all]" \
@@ -21,4 +21,4 @@ ENV ML_HOST=0.0.0.0 \
 EXPOSE 8000
 VOLUME ["/app/data"]
 
-CMD ["uvicorn", "memory_layer.api.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "memory_vault.api.main:app", "--host", "0.0.0.0", "--port", "8000"]

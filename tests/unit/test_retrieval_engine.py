@@ -5,10 +5,10 @@ from datetime import UTC, datetime
 
 import pytest
 
-from memory_layer.exceptions import BudgetExceededError, RetrievalError
-from memory_layer.models import MemoryChunk, MemoryType, PaginatedResult
-from memory_layer.retrieval.engine import RetrievalEngine
-from memory_layer.storage.base import (
+from memory_vault.exceptions import BudgetExceededError, RetrievalError
+from memory_vault.models import MemoryChunk, MemoryType, PaginatedResult
+from memory_vault.retrieval.engine import RetrievalEngine
+from memory_vault.storage.base import (
     MemoryListQuery,
     ProceduralMemoryRecord,
     SessionStatsRecord,

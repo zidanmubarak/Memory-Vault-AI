@@ -14,7 +14,7 @@ When storing memories for multiple users in ChromaDB, we must choose between:
 
 ## Decision
 
-Use a **single global collection** named `memory_layer` with `user_id` stored as
+Use a **single global collection** named `memory_vault` with `user_id` stored as
 document metadata, filtered at query time via `where={"user_id": user_id}`.
 
 **Rationale:**

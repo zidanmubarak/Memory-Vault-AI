@@ -4,10 +4,10 @@ from collections.abc import Sequence
 
 import pytest
 
-from memory_layer.exceptions import RetrievalError, StorageError
-from memory_layer.models import MemoryChunk, MemoryType, PaginatedResult
-from memory_layer.retrieval.searcher import MemorySearcher
-from memory_layer.storage.base import (
+from memory_vault.exceptions import RetrievalError, StorageError
+from memory_vault.models import MemoryChunk, MemoryType, PaginatedResult
+from memory_vault.retrieval.searcher import MemorySearcher
+from memory_vault.storage.base import (
     MemoryListQuery,
     MemorySearchQuery,
     ProceduralMemoryRecord,

@@ -7,9 +7,9 @@ Use plugins to add custom memory type classification behavior without modifying 
 ## Quick Example
 
 ```python
-from memory_layer import MemoryLayer
-from memory_layer.models import MemoryType
-from memory_layer.plugins import MemoryTypePlugin, register_memory_type_plugin
+from memory_vault import MemoryLayer
+from memory_vault.models import MemoryType
+from memory_vault.plugins import MemoryTypePlugin, register_memory_type_plugin
 
 
 class ProjectProfilePlugin(MemoryTypePlugin):
@@ -41,7 +41,7 @@ When a chunk matches the plugin:
 
 ## API Reference
 
-From `memory_layer.plugins`:
+From `memory_vault.plugins`:
 
 - `MemoryTypePlugin`
 - `MemoryTypePluginRegistry`

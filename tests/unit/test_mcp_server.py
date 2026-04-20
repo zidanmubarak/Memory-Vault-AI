@@ -6,9 +6,9 @@ from typing import Any, ClassVar
 
 from fastapi.testclient import TestClient
 
-from memory_layer.config import Settings
-from memory_layer.mcp.server import create_mcp_app
-from memory_layer.models import MemoryChunk, MemoryType, PaginatedResult, RecallResult
+from memory_vault.config import Settings
+from memory_vault.mcp.server import create_mcp_app
+from memory_vault.models import MemoryChunk, MemoryType, PaginatedResult, RecallResult
 
 
 class FakeMemoryLayer:
@@ -137,7 +137,7 @@ def _rpc(method: str, *, rpc_id: int = 1, params: dict[str, Any] | None = None) 
 
 def test_mcp_health_and_tools_list(monkeypatch) -> None:  # type: ignore[no-untyped-def]
     _reset_records()
-    import memory_layer.mcp.server as mcp_server
+    import memory_vault.mcp.server as mcp_server
 
     monkeypatch.setattr(mcp_server, "MemoryLayer", FakeMemoryLayer)
 
@@ -163,7 +163,7 @@ def test_mcp_health_and_tools_list(monkeypatch) -> None:  # type: ignore[no-unty
 
 def test_mcp_save_and_recall_tools(monkeypatch) -> None:  # type: ignore[no-untyped-def]
     _reset_records()
-    import memory_layer.mcp.server as mcp_server
+    import memory_vault.mcp.server as mcp_server
 
     monkeypatch.setattr(mcp_server, "MemoryLayer", FakeMemoryLayer)
 
@@ -217,7 +217,7 @@ def test_mcp_save_and_recall_tools(monkeypatch) -> None:  # type: ignore[no-unty
 
 def test_mcp_list_and_forget_tools(monkeypatch) -> None:  # type: ignore[no-untyped-def]
     _reset_records()
-    import memory_layer.mcp.server as mcp_server
+    import memory_vault.mcp.server as mcp_server
 
     monkeypatch.setattr(mcp_server, "MemoryLayer", FakeMemoryLayer)
 
@@ -314,7 +314,7 @@ def test_mcp_list_and_forget_tools(monkeypatch) -> None:  # type: ignore[no-unty
 
 def test_mcp_auth_enforced_when_api_key_configured(monkeypatch) -> None:  # type: ignore[no-untyped-def]
     _reset_records()
-    import memory_layer.mcp.server as mcp_server
+    import memory_vault.mcp.server as mcp_server
 
     monkeypatch.setattr(mcp_server, "MemoryLayer", FakeMemoryLayer)
 

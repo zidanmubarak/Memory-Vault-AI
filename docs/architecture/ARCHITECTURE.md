@@ -1,4 +1,4 @@
-# Architecture — Memory Layer AI
+# Architecture — Memory Vault AI
 
 > **Audience:** AI coding agents, senior contributors, and anyone building integrations.
 > For a quick overview, see the [documentation home](../index.md).
@@ -8,7 +8,7 @@
 
 ## System Overview
 
-Memory Layer AI is a **middleware system** that sits between a user-facing application and
+Memory Vault AI is a **middleware system** that sits between a user-facing application and
 any LLM. Its sole job is to manage what the model knows about the user across sessions.
 
 ```
@@ -18,7 +18,7 @@ any LLM. Its sole job is to manage what the model knows about the user across se
 └──────────────────────────┬────────────────────────────────────────┘
                            │  HTTP  or  Python SDK
 ┌──────────────────────────▼────────────────────────────────────────┐
-│                     Memory Layer AI                               │
+│                     Memory Vault AI                               │
 │  ┌──────────────┐  ┌────────────┐  ┌──────────────────────────┐  │
 │  │  API Layer   │  │  SDK       │  │  MCP Server              │  │
 │  │  (FastAPI)   │  │  (Python)  │  │  (for AI agent tools)    │  │
@@ -46,7 +46,7 @@ any LLM. Its sole job is to manage what the model knows about the user across se
 
 ## Component Reference
 
-### 1. API Layer (`memory_layer/api/`)
+### 1. API Layer (`memory_vault/api/`)
 
 FastAPI application exposing REST endpoints. Handles authentication, request validation,
 and routes to core engine methods.
@@ -62,7 +62,7 @@ and routes to core engine methods.
 
 ---
 
-### 2. Ingestion Engine (`memory_layer/ingestion/`)
+### 2. Ingestion Engine (`memory_vault/ingestion/`)
 
 Processes raw text into structured, embeddable memory chunks.
 
@@ -87,7 +87,7 @@ See `docs/adr/ADR-002-chunking-strategy.md`.
 
 ---
 
-### 3. Storage Layer (`memory_layer/storage/`)
+### 3. Storage Layer (`memory_vault/storage/`)
 
 Abstraction over all persistence backends. **Feature code must never call ChromaDB or
 SQLite directly** — always use `StorageLayer`.
@@ -112,7 +112,7 @@ StorageLayer (abstract base)
 
 ---
 
-### 4. Retrieval Engine (`memory_layer/retrieval/`)
+### 4. Retrieval Engine (`memory_vault/retrieval/`)
 
 Finds the most relevant memories for a given user query.
 
@@ -135,7 +135,7 @@ query_text
 
 ---
 
-### 5. Context Budget Manager (`memory_layer/budget/`)
+### 5. Context Budget Manager (`memory_vault/budget/`)
 
 Enforces token limits so retrieved memories never overflow the LLM's context window.
 
@@ -149,7 +149,7 @@ Enforces token limits so retrieved memories never overflow the LLM's context win
 
 ---
 
-### 6. Memory Compression Engine (`memory_layer/compression/`)
+### 6. Memory Compression Engine (`memory_vault/compression/`)
 
 Background job that runs when episodic memory for a user exceeds `compression_threshold`
 sessions. Summarizes old episodes to free storage and keep retrieval quality high.
@@ -164,7 +164,7 @@ sessions. Summarizes old episodes to free storage and keep retrieval quality hig
 
 ---
 
-### 7. Prompt Builder (`memory_layer/prompt/`)
+### 7. Prompt Builder (`memory_vault/prompt/`)
 
 Assembles the final context block to inject into the LLM prompt.
 
@@ -182,12 +182,12 @@ Format is configurable. The default XML-like wrapper is readable by all major LL
 
 ---
 
-### 8. Python SDK (`memory_layer/sdk/`)
+### 8. Python SDK (`memory_vault/sdk/`)
 
 High-level public interface. This is what end users `import`.
 
 ```python
-from memory_layer import MemoryLayer
+from memory_vault import MemoryLayer
 
 ml = MemoryLayer(user_id="...", config=MemoryConfig(...))
 await ml.save(text, session_id="...")
@@ -196,12 +196,12 @@ await ml.forget(memory_id="...")
 memories = await ml.list(memory_type="semantic")
 ```
 
-**The SDK is the contract.** Anything in `memory_layer.sdk` is public API.
+**The SDK is the contract.** Anything in `memory_vault.sdk` is public API.
 Breaking changes require a major version bump and `docs/api/API_SPEC.md` update.
 
 ---
 
-### 9. CLI (`memory_layer/cli/`)
+### 9. CLI (`memory_vault/cli/`)
 
 Debug and admin tooling built with Typer + Rich.
 
@@ -209,14 +209,14 @@ Debug and admin tooling built with Typer + Rich.
 memory-vault memory list --user alice --type semantic
 memory-vault memory search --user alice "PostgreSQL"
 memory-vault memory delete --id <memory_id>
-memory-layer session stats --user alice
+memory-vault session stats --user alice
 memory-vault compress --user alice --dry-run
-memory-layer server start --port 8000
+memory-vault server start --port 8000
 ```
 
 ---
 
-### 10. MCP Server (`memory_layer/mcp/`)
+### 10. MCP Server (`memory_vault/mcp/`)
 
 Exposes memory operations as MCP tools, enabling direct integration with
 Claude Code, Cursor, Windsurf, and any MCP-compatible AI tool.
@@ -233,7 +233,7 @@ Claude Code, Cursor, Windsurf, and any MCP-compatible AI tool.
 
 ## Data Models
 
-Core Pydantic models live in `memory_layer/models.py`:
+Core Pydantic models live in `memory_vault/models.py`:
 
 ```python
 class MemoryChunk(BaseModel):
@@ -265,7 +265,7 @@ class MemoryConfig(BaseModel):
 
 ## Configuration
 
-All configuration flows through `memory_layer/config.py` using Pydantic Settings.
+All configuration flows through `memory_vault/config.py` using Pydantic Settings.
 Environment variables override defaults. See `.env.example` for all options.
 
 ---

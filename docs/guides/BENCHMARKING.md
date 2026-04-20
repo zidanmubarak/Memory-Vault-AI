@@ -1,4 +1,4 @@
-# Benchmarking Guide — Memory Layer AI
+# Benchmarking Guide — Memory Vault AI
 
 This guide explains how to run the built-in performance benchmark suite and record reproducible baseline numbers.
 
@@ -26,7 +26,7 @@ python scripts/benchmark/run_benchmark_suite.py
 On Windows with the project virtual environment:
 
 ```powershell
-d:/github/Memory-Layer-AI/.venv/Scripts/python.exe scripts/benchmark/run_benchmark_suite.py
+d:/github/Memory-Vault-AI/.venv/Scripts/python.exe scripts/benchmark/run_benchmark_suite.py
 ```
 
 ---

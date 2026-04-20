@@ -6,10 +6,10 @@ from typing import Any, ClassVar
 
 from fastapi.testclient import TestClient
 
-from memory_layer.api.main import create_app
-from memory_layer.config import Settings
-from memory_layer.models import MemoryChunk, MemoryType, PaginatedResult, RecallResult
-from memory_layer.storage.base import (
+from memory_vault.api.main import create_app
+from memory_vault.config import Settings
+from memory_vault.models import MemoryChunk, MemoryType, PaginatedResult, RecallResult
+from memory_vault.storage.base import (
     MemoryListQuery,
     MemorySearchQuery,
     ProceduralMemoryRecord,
@@ -237,7 +237,7 @@ class FakeMemoryLayer:
         return before - len(FakeMemoryLayer.records)
 
 
-def _clear_fake_memory_layer() -> None:
+def _clear_fake_memory_vault() -> None:
     FakeMemoryLayer.created.clear()
     FakeMemoryLayer.records.clear()
     FakeMemoryLayer.save_calls.clear()
@@ -248,8 +248,8 @@ def _clear_fake_memory_layer() -> None:
 
 
 def test_post_memory_returns_save_result(monkeypatch) -> None:  # type: ignore[no-untyped-def]
-    _clear_fake_memory_layer()
-    monkeypatch.setattr("memory_layer.api.routes.memory.MemoryLayer", FakeMemoryLayer)
+    _clear_fake_memory_vault()
+    monkeypatch.setattr("memory_vault.api.routes.memory.MemoryLayer", FakeMemoryLayer)
 
     settings = Settings(storage_backend="chroma", metadata_backend="sqlite")
     app = create_app(settings=settings, storage=FakeStorage())
@@ -281,8 +281,8 @@ def test_post_memory_returns_save_result(monkeypatch) -> None:  # type: ignore[n
 
 
 def test_get_memory_recall_returns_recall_result(monkeypatch) -> None:  # type: ignore[no-untyped-def]
-    _clear_fake_memory_layer()
-    monkeypatch.setattr("memory_layer.api.routes.memory.MemoryLayer", FakeMemoryLayer)
+    _clear_fake_memory_vault()
+    monkeypatch.setattr("memory_vault.api.routes.memory.MemoryLayer", FakeMemoryLayer)
 
     settings = Settings(storage_backend="chroma", metadata_backend="sqlite")
     app = create_app(settings=settings, storage=FakeStorage())
@@ -311,8 +311,8 @@ def test_get_memory_recall_returns_recall_result(monkeypatch) -> None:  # type: 
 
 
 def test_get_memory_recall_rejects_invalid_memory_types(monkeypatch) -> None:  # type: ignore[no-untyped-def]
-    _clear_fake_memory_layer()
-    monkeypatch.setattr("memory_layer.api.routes.memory.MemoryLayer", FakeMemoryLayer)
+    _clear_fake_memory_vault()
+    monkeypatch.setattr("memory_vault.api.routes.memory.MemoryLayer", FakeMemoryLayer)
 
     settings = Settings(storage_backend="chroma", metadata_backend="sqlite")
     app = create_app(settings=settings, storage=FakeStorage())
@@ -332,8 +332,8 @@ def test_get_memory_recall_rejects_invalid_memory_types(monkeypatch) -> None:  #
 
 
 def test_post_memory_rate_limit_enforced_per_user(monkeypatch) -> None:  # type: ignore[no-untyped-def]
-    _clear_fake_memory_layer()
-    monkeypatch.setattr("memory_layer.api.routes.memory.MemoryLayer", FakeMemoryLayer)
+    _clear_fake_memory_vault()
+    monkeypatch.setattr("memory_vault.api.routes.memory.MemoryLayer", FakeMemoryLayer)
 
     settings = Settings(
         storage_backend="chroma",
@@ -360,8 +360,8 @@ def test_post_memory_rate_limit_enforced_per_user(monkeypatch) -> None:  # type:
 
 
 def test_post_memory_rate_limit_is_user_scoped(monkeypatch) -> None:  # type: ignore[no-untyped-def]
-    _clear_fake_memory_layer()
-    monkeypatch.setattr("memory_layer.api.routes.memory.MemoryLayer", FakeMemoryLayer)
+    _clear_fake_memory_vault()
+    monkeypatch.setattr("memory_vault.api.routes.memory.MemoryLayer", FakeMemoryLayer)
 
     settings = Settings(
         storage_backend="chroma",
@@ -391,8 +391,8 @@ def test_post_memory_rate_limit_is_user_scoped(monkeypatch) -> None:  # type: ig
 
 
 def test_get_memory_recall_rate_limit_enforced_per_user(monkeypatch) -> None:  # type: ignore[no-untyped-def]
-    _clear_fake_memory_layer()
-    monkeypatch.setattr("memory_layer.api.routes.memory.MemoryLayer", FakeMemoryLayer)
+    _clear_fake_memory_vault()
+    monkeypatch.setattr("memory_vault.api.routes.memory.MemoryLayer", FakeMemoryLayer)
 
     settings = Settings(
         storage_backend="chroma",
@@ -418,8 +418,8 @@ def test_get_memory_recall_rate_limit_enforced_per_user(monkeypatch) -> None:  #
 
 
 def test_get_memory_list_returns_paginated_result(monkeypatch) -> None:  # type: ignore[no-untyped-def]
-    _clear_fake_memory_layer()
-    monkeypatch.setattr("memory_layer.api.routes.memory.MemoryLayer", FakeMemoryLayer)
+    _clear_fake_memory_vault()
+    monkeypatch.setattr("memory_vault.api.routes.memory.MemoryLayer", FakeMemoryLayer)
 
     settings = Settings(storage_backend="chroma", metadata_backend="sqlite")
     app = create_app(settings=settings, storage=FakeStorage())
@@ -464,8 +464,8 @@ def test_get_memory_list_returns_paginated_result(monkeypatch) -> None:  # type:
 
 
 def test_delete_memory_and_delete_all_memory(monkeypatch) -> None:  # type: ignore[no-untyped-def]
-    _clear_fake_memory_layer()
-    monkeypatch.setattr("memory_layer.api.routes.memory.MemoryLayer", FakeMemoryLayer)
+    _clear_fake_memory_vault()
+    monkeypatch.setattr("memory_vault.api.routes.memory.MemoryLayer", FakeMemoryLayer)
 
     settings = Settings(storage_backend="chroma", metadata_backend="sqlite")
     app = create_app(settings=settings, storage=FakeStorage())
@@ -515,8 +515,8 @@ def test_delete_memory_and_delete_all_memory(monkeypatch) -> None:  # type: igno
 
 
 def test_delete_all_memory_requires_confirm_true(monkeypatch) -> None:  # type: ignore[no-untyped-def]
-    _clear_fake_memory_layer()
-    monkeypatch.setattr("memory_layer.api.routes.memory.MemoryLayer", FakeMemoryLayer)
+    _clear_fake_memory_vault()
+    monkeypatch.setattr("memory_vault.api.routes.memory.MemoryLayer", FakeMemoryLayer)
 
     settings = Settings(storage_backend="chroma", metadata_backend="sqlite")
     app = create_app(settings=settings, storage=FakeStorage())

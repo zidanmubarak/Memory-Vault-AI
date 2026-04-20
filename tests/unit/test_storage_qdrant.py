@@ -5,9 +5,9 @@ from typing import Any
 
 import pytest
 
-from memory_layer.models import MemoryChunk, MemoryType
-from memory_layer.storage.base import MemorySearchQuery
-from memory_layer.storage.qdrant import QdrantAdapter
+from memory_vault.models import MemoryChunk, MemoryType
+from memory_vault.storage.base import MemorySearchQuery
+from memory_vault.storage.qdrant import QdrantAdapter
 
 
 @dataclass
@@ -178,7 +178,7 @@ async def test_qdrant_adapter_upsert_and_query_filters() -> None:
     client = FakeQdrantClient()
     adapter = QdrantAdapter(
         qdrant_url="http://localhost:6333",
-        collection_name="memory_layer",
+        collection_name="memory_vault",
         client=client,
     )
 
@@ -234,7 +234,7 @@ async def test_qdrant_adapter_delete_methods_are_user_scoped() -> None:
     client = FakeQdrantClient()
     adapter = QdrantAdapter(
         qdrant_url="http://localhost:6333",
-        collection_name="memory_layer",
+        collection_name="memory_vault",
         client=client,
     )
 
